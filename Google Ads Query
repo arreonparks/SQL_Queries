@@ -1,0 +1,13 @@
+-- Google Political Ads SQL query for dollars spent by state--
+
+SELECT 
+  s.advertiser_id, advertiser_declared_name, country, s.spend_usd, country_subdivision_primary AS state,   
+FROM
+    bigquery-public-data.google_political_ads.advertiser_declared_stats AS d
+INNER JOIN 
+    bigquery-public-data.google_political_ads.advertiser_geo_spend AS gs
+ON d.advertiser_id = gs.advertiser_id
+INNER JOIN 
+    bigquery-public-data.google_political_ads.advertiser_stats AS s
+ON d.advertiser_id = s.advertiser_id
+ORDER BY s.spend_usd, state 
